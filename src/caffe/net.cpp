@@ -50,7 +50,7 @@ void Net<Dtype>::Init(const NetParameter& in_param) {
   CHECK(Caffe::root_solver() || root_net_)
       << "root_net_ needs to be set for all non-root solvers";
   // Set phase from the state.
-  phase_ = in_param.state().phase();
+  this->phase_ = in_param.state().phase();
   // Filter layers based on their include/exclude rules and
   // the current NetState.
   NetParameter filtered_param;
@@ -446,12 +446,13 @@ int Net<Dtype>::AppendBottom(const NetParameter& param, const int layer_id,
 }
 
 template <typename Dtype>
-void Net<Dtype>::AppendParam(const NetParameter& param, const int layer_id,
+void Net<Dtype>::AppendParam(const NetParameter& _, const int layer_id,
                              const int param_id) {
   const LayerParameter& layer_param = layers_[layer_id]->layer_param();
   const int param_size = layer_param.param_size();
   string param_name =
       (param_size > param_id) ? layer_param.param(param_id).name() : "";
+  DLOG(INFO) << "AppendParam : " << layer_id << " : " << layer_param.name() << " : param_name: " << param_name;
   if (param_name.size()) {
     param_display_names_.push_back(param_name);
   } else {

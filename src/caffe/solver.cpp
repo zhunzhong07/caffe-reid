@@ -8,6 +8,7 @@
 #include "caffe/util/hdf5.hpp"
 #include "caffe/util/io.hpp"
 #include "caffe/util/upgrade_proto.hpp"
+#include "caffe/util/benchmark.hpp"
 
 namespace caffe {
 
@@ -47,7 +48,7 @@ void Solver<Dtype>::Init(const SolverParameter& param) {
       << "root_solver_ needs to be set for all non-root solvers";
   LOG_IF(INFO, Caffe::root_solver()) << "Initializing solver from parameters: "
     << std::endl << param.DebugString();
-  param_ = param;
+  this->param_ = param;
   CHECK_GE(param_.average_loss(), 1) << "average_loss should be non-negative.";
   CheckSnapshotWritePermissions();
   if (Caffe::root_solver() && param_.random_seed() >= 0) {
@@ -192,6 +193,8 @@ void Solver<Dtype>::InitTestNets() {
 
 template <typename Dtype>
 void Solver<Dtype>::Step(int iters) {
+  caffe::Timer time_for_count;
+  time_for_count.Start();
   const int start_iter = iter_;
   const int stop_iter = iter_ + iters;
   int average_loss = this->param_.average_loss();
@@ -225,8 +228,18 @@ void Solver<Dtype>::Step(int iters) {
     // average the loss across iterations for smoothed reporting
     UpdateSmoothedLoss(loss, start_iter, average_loss);
     if (display) {
+      // Calculate Time
+      float average_time = time_for_count.MilliSeconds() / (iter_==0?1:param_.display()) / 1000;
+      float remaining_time = average_time * (param_.max_iter() - iter_);
+      int remaining_hour = floor(remaining_time / 3600);
+      int remaining_min = round(remaining_time / 60 - remaining_hour * 60);
+      std::ostringstream text_time;
+      text_time << "[ " << iter_ << " / " << param_.max_iter() << " ] -> [ " << std::setw(6) << average_time << " s / "
+                << remaining_hour << ":" << remaining_min << " (H:M) ]";
+      time_for_count.Start();
+
       LOG_IF(INFO, Caffe::root_solver()) << "Iteration " << iter_
-          << ", loss = " << smoothed_loss_;
+          << ", loss = " << smoothed_loss_ << "  " << text_time.str();
       const vector<Blob<Dtype>*>& result = net_->output_blobs();
       int score_index = 0;
       for (int j = 0; j < result.size(); ++j) {
@@ -314,7 +327,7 @@ void Solver<Dtype>::Solve(const char* resume_file) {
 
     UpdateSmoothedLoss(loss, start_iter, average_loss);
 
-    LOG(INFO) << "Iteration " << iter_ << ", loss = " << smoothed_loss_;
+    LOG(INFO) << "Iteration " << iter_ << ", loss = " << smoothed_loss_ << "[ " << iter_ << " / " << iter_ << " ] -> [ 0 s / 0:0 (H:M) ]";
   }
   if (param_.test_interval() && iter_ % param_.test_interval() == 0) {
     TestAll();

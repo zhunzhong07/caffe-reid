@@ -104,6 +104,7 @@ int main(int argc, char** argv) {
   // Write to disk
   if (argc == 3) {
     LOG(INFO) << "Write to " << argv[2];
+    LOG(INFO) << "channels : " << sum_blob.channels() << ", height : " << sum_blob.height() << ", width : " << sum_blob.width();
     WriteProtoToBinaryFile(sum_blob, argv[2]);
   }
   const int channels = sum_blob.channels();
