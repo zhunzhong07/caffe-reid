@@ -164,15 +164,18 @@ def main(argv):
         feature = classifier.get_blob_data(args.feature_name)
         score   = classifier.get_blob_data(args.score_name)
         assert (feature.shape[0] == 1 and score.shape[0] == 1)
-        assert (len(feature.shape) == 2 and len(score.shape) == 2)
+        feature_shape = feature.shape
+        score_shape = score.shape
         if save_feature is None:
-            save_feature = np.zeros((len(inputs), feature.shape[1]),dtype=np.float32)
-        save_feature[idx, :] = feature[0, :]
+            print('feature : {} : {}'.format(args.feature_name, feature_shape))
+            save_feature = np.zeros((len(inputs), feature.size),dtype=np.float32)
+        save_feature[idx, :] = feature.reshape(1, feature.size)
         if save_score is None:
-            save_score = np.zeros((len(inputs), score.shape[1]),dtype=np.float32)
-        save_score[idx, :] = score[0, :]
+            print('score : {} : {}'.format(args.score_name, score_shape))
+            save_score = np.zeros((len(inputs), score.size),dtype=np.float32)
+        save_score[idx, :] = score.reshape(1, score.size)
 
-        mx_idx = np.argmax(score[0, :])
+        mx_idx = np.argmax(score.view())
         ok = ok + int(int(mx_idx) == int(labels[idx]))
         print("{:5d} / {:5d} images predict done in {:.2f} s. [PRED: {:3d}] vs [OK: {:3d}] accuracy: {:.4f} = good: {:5d} bad: {:5d}".format( \
                                       idx+1, len(inputs), time.time() - start, mx_idx, labels[idx], ok/(idx+1), int(ok), idx+1-int(ok)))

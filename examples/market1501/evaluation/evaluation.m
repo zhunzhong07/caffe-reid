@@ -40,8 +40,10 @@ CMC_max_rerank = zeros(nQuery, nTest);
 r1 = 0; % rank 1 precision with single query
 r1_pairwise = zeros(nQuery, 6);% pairwise rank 1 precision with single query (see Fig. 7 in the paper)
 
-dist = sqdist(Hist_test, Hist_query); % distance calculate with single query. Note that Euclidean distance is equivalent to cosine distance if vectors are l2-normalized
+%dist = sqdist(Hist_test, Hist_query); % distance calculate with single query. Note that Euclidean distance is equivalent to cosine distance if vectors are l2-normalized
+dist = cosdist(Hist_test, Hist_query); % distance calculate with single query. For cosine distance
 
+tic;
 parfor k = 1:nQuery
 	fprintf('Handle (%4d / %4d)-th query. \n', k, nQuery);
     % load groud truth for each query (good and junk)
@@ -61,14 +63,8 @@ parfor k = 1:nQuery
     r1_pairwise(k, :) = compute_r1_multiCam(good_index, junk_index, index, queryCAM(k), testCAM); % pairwise rank 1 precision with single query
     %%%%%%%%%%%%%% calculate r1 precision %%%%%%%%%%%%%%%%%%%%
 end
-CMC = mean(CMC);
+FCMC = mean(CMC);
 %% print result
-fprintf('single query:                                   mAP = %f, r1 precision = %f\r\n', mean(ap), CMC(1));
+fprintf('single query:           mAP = %f, r1 precision = %f\r cost : %.1f s\n', mean(ap), FCMC(1), toc);
 %% [ap_CM, r1_CM] = draw_confusion_matrix(ap_pairwise, r1_pairwise, queryCAM);
 %% fprintf('average of confusion matrix with single query:  mAP = %f, r1 precision = %f\r\n', (sum(ap_CM(:))-sum(diag(ap_CM)))/30, (sum(r1_CM(:))-sum(diag(r1_CM)))/30);
-
-%% plot CMC curves
-%figure;
-%s = 50;
-%CMC_curve = [CMC_max_rerank; CMC_max; CMC_avg; CMC ];
-%plot(1:s, CMC_curve(:, 1:s));

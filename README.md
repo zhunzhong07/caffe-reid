@@ -1,9 +1,14 @@
 # Reid-Log
 ## fully supervise train
-caffenet  [1x128] : mAP = 0.392577, r1 precision = 0.630048
-googlenet [2x 64] : mAP = 0.392577, r1 precision = 0.630048
-vgg16     [2x 36] : mAP = 0.392577, r1 precision = 0.630048
-resnet-50 [4x 16] : mAP = 0.392577, r1 precision = 0.630048
+caffenet--[1x128] : mAP = 0.402689, r1 precision = 0.639846 [Euclidean]
+
+googlenet-[2x 64] : mAP = 0.476404, r1 precision = 0.706948 [Euclidean]
+
+googlenet-[2x 64] : mAP = 0.489998, r1 precision = 0.710214 [L2 + Eucl]
+
+vgg16-----[2x 36] : mAP = 0.436800, r1 precision = 0.655582
+
+resnet-50-[4x 16] : mAP = --------, r1 precision = --------
 
 # Caffe
 

@@ -91,8 +91,8 @@ solverproto.sp['base_lr'] = "0.001"
 solverproto.sp['stepsize'] = "16000"
 solverproto.sp['max_iter'] = "18000"
 solverproto.sp['snapshot'] = "2000"
-solverproto.sp['iter_size'] = "2"
-solverproto.sp['snapshot_prefix'] = "\"{}/snapshot/vgg16\"".format(workdir)
+solverproto.sp['iter_size'] = "3"
+solverproto.sp['snapshot_prefix'] = "\"{}/snapshot/vgg16.full\"".format(workdir)
 solverproto.write(osp.join(workdir, 'solver.proto'))
 
 list_file = 'examples/market1501/lists/train.lst'

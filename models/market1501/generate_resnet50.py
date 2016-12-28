@@ -147,7 +147,7 @@ solverproto.sp['stepsize'] = "16000"
 solverproto.sp['max_iter'] = "18000"
 solverproto.sp['snapshot'] = "1000"
 solverproto.sp['iter_size'] = "4"
-solverproto.sp['snapshot_prefix'] = "\"{}/snapshot/res50\"".format(workdir)
+solverproto.sp['snapshot_prefix'] = "\"{}/snapshot/res50.full\"".format(workdir)
 solverproto.write(osp.join(workdir, 'solver.proto'))
 
 list_file = 'examples/market1501/lists/train.lst'
