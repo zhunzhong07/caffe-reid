@@ -12,7 +12,7 @@ score_1  = importdata('../datamat/train.1.epoch2.score.mat');
 fc7_1L = importdata('../datamat/train.1L.epoch2.fc7.mat');
 fc7_1  = importdata('../datamat/train.1.epoch2.fc7.mat');
 
-assert (size(fc7_1, 2) == 4096);
+%assert (size(fc7_1, 2) == 4096);
 unique_label = unique(label_1);
 count_per_class = zeros(numel(unique_label), 1);
 class_num = numel(unique_label);
@@ -92,4 +92,3 @@ for i = 1:numel(label_all)
 	fprintf(list_file, '%s %d\n', select_all{i}, label_all(i)-1);
 end
 fclose(list_file);
-

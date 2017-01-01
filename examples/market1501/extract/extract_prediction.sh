@@ -7,12 +7,13 @@ else
     gpu=$1
 fi
 #base_model=caffenet
-#base_model=vgg16
-base_model=googlenet
-#feature_name=fc7
-feature_name=pool5/7x7_s1
+base_model=vgg16
+#base_model=googlenet
+#base_model=res50
+feature_name=fc7
+#feature_name=pool5/7x7_s1
 #feature_name=pool5
-model_file=./models/market1501/$base_model/snapshot/${base_model}.full_iter_18000.caffemodel
+model_file=./models/market1501/$base_model/snapshot/${base_model}.full_iter_36000.caffemodel
 
 python examples/market1501/testing/extract_feature.py \
 	examples/market1501/lists/test.lst \

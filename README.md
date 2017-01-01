@@ -8,7 +8,7 @@ googlenet-[2x 64] : mAP = 0.489998, r1 precision = 0.710214 [L2 + Eucl]
 
 vgg16-----[2x 36] : mAP = 0.436800, r1 precision = 0.655582
 
-resnet-50-[4x 16] : mAP = --------, r1 precision = --------
+resnet-50-[4x 16] : mAP = 0.593053, r1 precision = 0.801960 [L2 + Eucl]
 
 # Caffe
 
