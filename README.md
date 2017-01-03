@@ -6,7 +6,9 @@ googlenet-[2x 64] : mAP = 0.476404, r1 precision = 0.706948 [Euclidean]
 
 googlenet-[2x 64] : mAP = 0.489998, r1 precision = 0.710214 [L2 + Eucl]
 
-vgg16-----[2x 36] : mAP = 0.436800, r1 precision = 0.655582
+vgg16-----[2x 36] : mAP = 0.446430, r1 precision = 0.654394 [Failed]
+
+vgg-redice[2x 32] : mAP = 0.511268, r1 precision = 0.745843 [L2 + Eucl]
 
 resnet-50-[4x 16] : mAP = 0.593053, r1 precision = 0.801960 [L2 + Eucl]
 
