@@ -1,0 +1,13 @@
+average_loss: 25
+base_lr: 0.001
+display: 100
+gamma: 0.1
+iter_size: 4
+lr_policy: "step"
+max_iter: 18000
+momentum: 0.9
+snapshot: 1000
+snapshot_prefix: "models/market1501/res50/snapshot/res50.full"
+stepsize: 16000
+train_net: "models/market1501/res50/train.proto"
+weight_decay: 0.0005
