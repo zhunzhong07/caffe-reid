@@ -8,7 +8,9 @@ googlenet-[2x 64] : mAP = 0.489998, r1 precision = 0.710214 [Cos + Eucl]
 
 vgg16-----[2x 36] : mAP = 0.446430, r1 precision = 0.654394 [Failed]
 
-vgg-redice[2x 32] : mAP = 0.511268, r1 precision = 0.745843 [Cos + Eucl]
+vgg-reduce[2x 32] : mAP = 0.511268, r1 precision = 0.745843 [Cos + Eucl] [No Pooling]
+
+vgg-reduce[2x 32] : mAP = 0.461156, r1 precision = 0.719715 [Cos + Eucl] [Global MAX Pooling]
 
 resnet-50-[4x 16] : mAP = 0.593053, r1 precision = 0.801960 [Cos + Eucl]
 

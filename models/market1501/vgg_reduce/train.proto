@@ -353,9 +353,19 @@ layer {
   }
 }
 layer {
+  bottom: "fc7"
+  top: "global"
+  name: "global"
+  type: "Pooling"
+  pooling_param {
+    pool: MAX
+    global_pooling: true
+  }
+}
+layer {
   name: "score"
   type: "InnerProduct"
-  bottom: "fc7"
+  bottom: "global"
   top: "score"
   inner_product_param {
     num_output: 751
@@ -368,7 +378,7 @@ layer {
 layer {
   name: "euclidean"
   type: "PairEuclidean"
-  bottom: "fc7"
+  bottom: "global"
   bottom: "label"
   top: "euclidean"
   top: "label_dif"
