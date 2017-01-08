@@ -1,18 +1,61 @@
-# Reid-Log
-## fully supervise train
-caffenet--[1x128] : mAP = 0.402689, r1 precision = 0.639846 [Euclidean]
+# A Discriminatively Learned CNN Embedding for Person Re-identification
 
-googlenet-[2x 64] : mAP = 0.476404, r1 precision = 0.706948 [Euclidean]
+A caffe-based implementation of [this paper](https://arxiv.org/abs/1611.05666),
+providing whole training, testing and evaluation codes.
 
-googlenet-[2x 64] : mAP = 0.489998, r1 precision = 0.710214 [Cos + Eucl]
+The official code (written in matconvnet) is available [here](https://github.com/layumi/2016_person_re-ID).
 
-vgg16-----[2x 36] : mAP = 0.446430, r1 precision = 0.654394 [Failed]
+![Structure](https://github.com/D-X-Y/caffe-reid/blob/master/figures/person-re-identification-struct.png)
 
-vgg-reduce[2x 32] : mAP = 0.511268, r1 precision = 0.745843 [Cos + Eucl] [No Pooling]
+## Data Prepare
+- download Market-1501 dataset and `ln -s $Market-1501 examples/market1501/`
+- `cd examples/market1501/mat-codes` and `run generate_train.m` to generate train, test and qurey data lists.
 
-vgg-reduce[2x 32] : mAP = 0.461156, r1 precision = 0.719715 [Cos + Eucl] [Global MAX Pooling]
+## Results on Market-1501
 
-resnet-50-[4x 16] : mAP = 0.593053, r1 precision = 0.801960 [Cos + Eucl]
+[Market-1501](http://liangzheng.com.cn/Project/state_of_the_art_market1501.html) is one of the most popular person re-identification datasets.
+
+Models can be found in `models/market1501/model_name`
+
+Many scripts (e.g initialization, testing, training, extract feature and evaluation) can be found in `examples/market1501/`
+
+$[iter_size \times batch_size] = true batch_size$
+
+### caffenet
+- `python models/market1501/generate_caffenet.py` for generate caffenet based person re-ID network and solver files.
+- `examples/market1501/training/caffenet_train.sh` for training models.
+- `examples/market1501/extract/extract_prediction.sh` for extracting features of query and test data
+- `cd examples/market1501/evaluation/` and `run evaluation.m` to evaluate performance of the trained model on Market-1501
+- final results are [1x128] : mAP = 0.402689, r1 precision = 0.639846 [Euclidean]
+
+### googlenet
+- GoogleNet-v1 model is already in `models/market1501/googlenet`
+- training and testing processes are similar as previous
+- final results are [2x 64] : mAP = 0.476404, r1 precision = 0.706948 [Euclidean]
+- final results are [2x 64] : mAP = 0.489998, r1 precision = 0.710214 [Cos + Eucl]
+
+### vgg16
+- `python models/market1501/generate_vgg16.py` for generate caffenet based person re-ID network and solver files.
+- training and testing processes are similar as previous
+- final results are [2x 36] : mAP = 0.446430, r1 precision = 0.654394 [Failed]
+
+### vgg-reduce
+the atrous version of VGG16 (Semantic image segmentation with deep convolutional nets and fully connected crfs)
+- final results are [2x 32] : mAP = 0.461156, r1 precision = 0.719715 [Cos + Eucl] [Global MAX Pooling]
+- By drop the global max pooling layer in training and testing phase, a better performance can be obtained
+- final results are [2x 32] : mAP = 0.511268, r1 precision = 0.745843 [Cos + Eucl] [No Pooling]
+
+### resnet-50
+- final results are [4x 16] : mAP = 0.593053, r1 precision = 0.801960 [Cos + Eucl]
+
+# Citation
+Please cite this paper in your publications if it helps your research:
+@article{zheng2016discriminatively,
+  title={A Discriminatively Learned CNN Embedding for Person Re-identification},
+  author={Zheng, Zhedong and Zheng, Liang and Yang, Yi},
+  journal={arXiv preprint arXiv:1611.05666},
+  year={2016}
+}
 
 # Caffe
 

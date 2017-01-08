@@ -1,6 +1,7 @@
 clc;clear all;close all;
 
-root_dir = '/data2/changbao/ddd_data/DATA/Market-1501-v15.09.15';
+cur_dir = pwd();
+root_dir = '../Market-1501-v15.09.15'; cd(root_dir); root_dir = pwd(); cd(cur_dir);
 train_dir = fullfile(root_dir, 'bounding_box_train');% database directory
 %% calculate the ID and camera for database images
 train_files = dir([train_dir '/*.jpg']);
