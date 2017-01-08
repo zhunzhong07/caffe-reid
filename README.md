@@ -1,13 +1,13 @@
 # A Discriminatively Learned CNN Embedding for Person Re-identification
 
-A caffe-based implementation of [this paper](https://arxiv.org/abs/1611.05666),
+A [caffe](https://github.com/BVLC/caffe)-based implementation of [this paper](https://arxiv.org/abs/1611.05666),
 providing whole training, testing and evaluation codes.
 
 The official code (written in matconvnet) is available [here](https://github.com/layumi/2016_person_re-ID).
 
 ![Structure](https://github.com/D-X-Y/caffe-reid/blob/master/figures/person-re-identification-struct.png)
 
-## Data Prepare
+## Data Preparation
 - download Market-1501 dataset and `ln -s $Market-1501 examples/market1501/`
 - `cd examples/market1501/mat-codes` and `run generate_train.m` to generate train, test and qurey data lists.
 
