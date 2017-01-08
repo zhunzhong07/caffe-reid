@@ -19,7 +19,7 @@ Models can be found in `models/market1501/model_name`
 
 Many scripts (e.g initialization, testing, training, extract feature and evaluation) can be found in `examples/market1501/`
 
-$[iter_size \times batch_size] = true batch_size$
+[iter_size * batch_size] = real batch_size
 
 ### caffenet
 - `python models/market1501/generate_caffenet.py` for generate caffenet based person re-ID network and solver files.
@@ -42,7 +42,7 @@ $[iter_size \times batch_size] = true batch_size$
 ### vgg-reduce
 the atrous version of VGG16 (Semantic image segmentation with deep convolutional nets and fully connected crfs)
 - final results are [2x 32] : mAP = 0.461156, r1 precision = 0.719715 [Cos + Eucl] [Global MAX Pooling]
-- By drop the global max pooling layer in training and testing phase, a better performance can be obtained
+- By dropping the global max pooling layer in training and testing phase, a better performance can be obtained
 - final results are [2x 32] : mAP = 0.511268, r1 precision = 0.745843 [Cos + Eucl] [No Pooling]
 
 ### resnet-50
