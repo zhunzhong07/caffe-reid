@@ -50,12 +50,14 @@ the atrous version of VGG16 (Semantic image segmentation with deep convolutional
 
 # Citation
 Please cite this paper in your publications if it helps your research:
+```
 @article{zheng2016discriminatively,
   title={A Discriminatively Learned CNN Embedding for Person Re-identification},
   author={Zheng, Zhedong and Zheng, Liang and Yang, Yi},
   journal={arXiv preprint arXiv:1611.05666},
   year={2016}
 }
+```
 
 # Caffe
 
